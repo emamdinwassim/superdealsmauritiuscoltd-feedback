@@ -38,6 +38,7 @@
     margin-top: 8px;
     border-radius: 8px;
     border: none;
+    outline: none;
   }
 
   button {
@@ -67,9 +68,7 @@
     font-weight: bold;
   }
 
-  #mainApp {
-    display: none;
-  }
+  #mainApp { display: none; }
 </style>
 </head>
 
@@ -77,14 +76,14 @@
 
 <header>
   <h1>Super Deals Mauritius Co Ltd</h1>
-  <p>Secure Spin & Win Experience</p>
+  <p>Feedback • Spin & Win • WhatsApp Claim</p>
 </header>
 
 <div class="container">
 
   <!-- LOGIN -->
   <div class="card" id="loginBox">
-    <h2>Login Access</h2>
+    <h2>Login</h2>
 
     <input id="userId" placeholder="Enter ID" />
     <input id="userPass" type="password" placeholder="Enter Password" />
@@ -94,7 +93,7 @@
     </button>
   </div>
 
-  <!-- MAIN APP -->
+  <!-- MAIN -->
   <div id="mainApp">
 
     <!-- FEEDBACK -->
@@ -108,7 +107,7 @@
         <option>Poor</option>
       </select>
 
-      <textarea placeholder="What did you enjoy?"></textarea>
+      <textarea placeholder="What did you like?"></textarea>
 
       <button class="submit-btn" onclick="unlockSpin()">
         Submit Feedback
@@ -121,7 +120,7 @@
 
       <canvas id="wheel" width="300" height="300"></canvas>
 
-      <button class="spin-btn" onclick="spinWheel()" id="spinBtn">
+      <button class="spin-btn" onclick="spinWheel()">
         SPIN NOW
       </button>
 
@@ -129,11 +128,10 @@
     </div>
 
   </div>
-
 </div>
 
 <script>
-const PASSWORD = "wassim777";   // ⚠️ demo only
+const PASSWORD = "wassim777";
 const ID = "hospitality";
 
 let canSpin = false;
@@ -157,7 +155,7 @@ function login() {
     drawWheel();
     alert("Login successful 🎉");
   } else {
-    alert("Invalid ID or Password");
+    alert("Invalid login");
   }
 }
 
@@ -239,6 +237,16 @@ function spinWheel() {
 
       localStorage.setItem("spunOnce", "true");
       canSpin = false;
+
+      // WhatsApp redirect
+      const message = encodeURIComponent(
+        "Hello Super Deals Mauritius Co Ltd, I won: " + result + ". Please help me claim my reward."
+      );
+
+      setTimeout(() => {
+        window.location.href =
+          "https://wa.me/23059237053?text=" + message;
+      }, 1500);
     }
   }
 
